@@ -1,0 +1,8 @@
+{% match data %}
+{% when ChatReplyData::Speech with (v) %}
+{{ v|safe }}
+{% when ChatReplyData::Markdown with (v) %}
+{{ v|safe }}
+{% when ChatReplyData::Image with (v) %}
+{{ v|safe }}
+{% endmatch %}
