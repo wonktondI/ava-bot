@@ -1,11 +1,11 @@
-use std::env;
+use crate::handlers::AssistantEvent;
 use clap::Parser;
 use dashmap::DashMap;
 use llm_sdk::LlmSDK;
 use once_cell::sync::Lazy;
+use std::env;
 use std::path::{Path, PathBuf};
 use tokio::sync::broadcast;
-use crate::handlers::AssistantEvent;
 
 mod error;
 pub mod handlers;
@@ -31,7 +31,8 @@ pub static LLM_SDK: Lazy<LlmSDK> = Lazy::new(|| {
     )*/
 });
 
-pub(crate) static EVENTS: Lazy<DashMap<String, broadcast::Sender<AssistantEvent>>> = Lazy::new(DashMap::new);
+pub(crate) static EVENTS: Lazy<DashMap<String, broadcast::Sender<AssistantEvent>>> =
+    Lazy::new(DashMap::new);
 
 pub fn audio_path(device_id: &str, name: &str) -> PathBuf {
     Path::new("./tmp/ava-bot/audio")
