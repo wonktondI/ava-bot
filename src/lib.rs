@@ -1,3 +1,4 @@
+use std::env;
 use clap::Parser;
 use dashmap::DashMap;
 use llm_sdk::LlmSDK;
@@ -21,8 +22,8 @@ pub struct Args {
 
 pub static LLM_SDK: Lazy<LlmSDK> = Lazy::new(|| {
     LlmSDK::new_with_base_url(
-        "sk-".to_string(),
-        "https://openapi/v1",
+        env::var("OPENAI_API_KEY").unwrap(),
+        "https://oneapi.xty.app/v1",
     )
     /*LlmSDK::new_with_base_url(
         "sk-".to_string(),
