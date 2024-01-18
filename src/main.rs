@@ -6,7 +6,8 @@ use rust_embed::RustEmbed;
 use salvo::prelude::TcpListener;
 use salvo::serve_static::{static_embed, StaticDir};
 use salvo::{Listener, Router, Server};
-use std::time::Duration;
+use salvo::server::ServerHandle;
+use tokio::signal;
 use tracing::info;
 
 #[derive(RustEmbed)]
@@ -41,14 +42,35 @@ async fn main() -> Result<()> {
 
     let addr = format!("0.0.0.0:{}", args.port);
     info!("Listening on {}", addr);
-    let acceptor = TcpListener::new(addr).bind().await;
-    let server = Server::new(acceptor);
+    let server = Server::new(TcpListener::new(addr).bind().await);
     let handle = server.handle();
-    tokio::spawn(async move {
-        tokio::time::sleep(Duration::from_secs(5)).await;
-        handle.stop_graceful(None);
-    });
+    tokio::spawn(shutdown_signal(handle));
     server.serve(router).await;
 
     Ok(())
+}
+
+async fn shutdown_signal(handle: ServerHandle) {
+    let ctrl_c = async {
+        signal::ctrl_c()
+            .await
+            .expect("failed to install Ctrl+C handler");
+    };
+
+    #[cfg(unix)]
+        let terminate = async {
+        signal::unix::signal(signal::unix::SignalKind::terminate())
+            .expect("failed to install signal handler")
+            .recv()
+            .await;
+    };
+
+    #[cfg(not(unix))]
+        let terminate = std::future::pending::<()>();
+
+    tokio::select! {
+        _ = ctrl_c => info!("ctrl_c signal received"),
+        _ = terminate => info!("terminate signal received"),
+    }
+    handle.stop_graceful(std::time::Duration::from_secs(10));
 }

@@ -43,7 +43,7 @@ async fn sse_handler(
                 AssistantEvent::Reply(v) => ("reply", v.id.clone()),
             };
             let data: String = v.into();
-            SseEvent::default().text(data).name(event).id(id)
+            SseEvent::default().name(event).text(data).id(id)
         })
         .map(Ok::<_, Infallible>);
     SseKeepAlive::new(stream)
