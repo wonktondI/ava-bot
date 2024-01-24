@@ -11,11 +11,11 @@ use tokio::signal;
 use tracing::info;
 
 #[derive(RustEmbed)]
-#[folder = "./public/"]
+#[folder = "public"]
 struct Public;
 
 #[derive(RustEmbed)]
-#[folder = "./tmp/ava-bot/"]
+#[folder = "tmp/ava-bot"]
 struct Asset;
 
 #[tokio::main]
