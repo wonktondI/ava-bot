@@ -14,9 +14,9 @@ use base64::Engine;
 use comrak::markdown_to_html_with_plugins;
 use comrak::plugins::syntect::SyntectAdapter;
 use llm_sdk::{
-    ChatCompletionChoice, ChatCompletionMessage, ChatCompletionRequest, CreateImageRequestBuilder,
-    ImageResponseFormat, SpeechRequestBuilder, SpeechVoice, WhisperRequestBuilder,
-    WhisperRequestType,
+    ChatCompleteModel, ChatCompletionChoice, ChatCompletionMessage, ChatCompletionRequest,
+    CreateImageRequestBuilder, ImageResponseFormat, SpeechRequestBuilder, SpeechVoice,
+    WhisperRequestBuilder, WhisperRequestType,
 };
 use salvo::http::form::FilePart;
 use salvo::prelude::Text;
@@ -160,7 +160,7 @@ async fn chat_completion_with_tools(prompt: &str) -> anyhow::Result<ChatCompleti
 }
 
 async fn chat_completion(messages: Vec<ChatCompletionMessage>) -> anyhow::Result<String> {
-    let req = ChatCompletionRequest::new(messages);
+    let req = ChatCompletionRequest::new(ChatCompleteModel::default(), messages);
     let mut res = LLM_SDK.chat_completion(req).await?;
     let content = res
         .choices

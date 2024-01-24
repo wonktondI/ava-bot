@@ -1,10 +1,10 @@
 use crate::handlers::AssistantEvent;
 use clap::Parser;
 use dashmap::DashMap;
-use llm_sdk::LlmSDK;
 use once_cell::sync::Lazy;
 use std::env;
 use std::path::{Path, PathBuf};
+use llm_sdk::LlmSdk;
 use tokio::sync::broadcast;
 
 mod error;
@@ -20,8 +20,8 @@ pub struct Args {
     pub cert_path: String,
 }
 
-pub static LLM_SDK: Lazy<LlmSDK> = Lazy::new(|| {
-    LlmSDK::new_with_base_url(
+pub static LLM_SDK: Lazy<LlmSdk> = Lazy::new(|| {
+    LlmSdk::new_with_base_url(
         env::var("OPENAI_API_KEY").unwrap(),
         "https://oneapi.xty.app/v1",
     )
