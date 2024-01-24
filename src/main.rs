@@ -15,7 +15,7 @@ use tracing::info;
 struct Public;
 
 #[derive(RustEmbed)]
-#[folder = "tmp/ava-bot"]
+#[folder = "/tmp/ava-bot"]
 struct Asset;
 
 #[tokio::main]
