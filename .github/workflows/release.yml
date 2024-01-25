@@ -30,7 +30,7 @@ jobs:
 
       - name: Extract branch or tag name
         id: extract_ref
-        run: echo "##[set-output name=ref;]$(echo ${GITHUB_REF#refs/*/})"
+        run: echo "ref=$(echo ${GITHUB_REF#refs/*/})" >> $GITHUB_ENV
 
       - name: Setup release
         id: create_release
@@ -38,8 +38,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          tag_name: ${{ env.ref }}
+          release_name: Release ${{ env.ref }}
           draft: false
           prerelease: false
 
