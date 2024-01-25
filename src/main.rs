@@ -5,8 +5,8 @@ use clap::Parser;
 use rust_embed::RustEmbed;
 use salvo::prelude::TcpListener;
 use salvo::serve_static::{static_embed, StaticDir};
-use salvo::{Listener, Router, Server};
 use salvo::server::ServerHandle;
+use salvo::{Listener, Router, Server};
 use tokio::signal;
 use tracing::info;
 
@@ -30,7 +30,8 @@ async fn main() -> Result<()> {
         .push(Router::with_path("/public/<*path>").get(StaticDir::new(["public"]).auto_list(true)))
         // .push(Router::with_path("/public/<*path>").get(static_embed::<Public>()))
         .push(
-            Router::with_path("/assets/<*path>").get(StaticDir::new(["tmp/ava-bot"]).auto_list(true)),
+            Router::with_path("/assets/<*path>")
+                .get(StaticDir::new(["tmp/ava-bot"]).auto_list(true)),
             // Router::with_path("/assets/<*path>").get(static_embed::<Asset>()),
         )
         .push(
@@ -58,7 +59,7 @@ async fn shutdown_signal(handle: ServerHandle) {
     };
 
     #[cfg(unix)]
-        let terminate = async {
+    let terminate = async {
         signal::unix::signal(signal::unix::SignalKind::terminate())
             .expect("failed to install signal handler")
             .recv()
@@ -66,7 +67,7 @@ async fn shutdown_signal(handle: ServerHandle) {
     };
 
     #[cfg(not(unix))]
-        let terminate = std::future::pending::<()>();
+    let terminate = std::future::pending::<()>();
 
     tokio::select! {
         _ = ctrl_c => info!("ctrl_c signal received"),
