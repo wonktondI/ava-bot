@@ -10,14 +10,14 @@ use salvo::server::ServerHandle;
 use tokio::signal;
 use tracing::info;
 
-#[derive(RustEmbed)]
+/*#[derive(RustEmbed)]
 #[folder = "public"]
 struct Public;
 
 #[derive(RustEmbed)]
 #[folder = "/tmp/ava-bot"]
 struct Asset;
-
+*/
 #[tokio::main]
 async fn main() -> Result<()> {
     tracing_subscriber::fmt()
