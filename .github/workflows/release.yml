@@ -28,6 +28,10 @@ jobs:
           command: build
           args: --release
 
+      - name: Extract branch or tag name
+        id: extract_ref
+        run: echo "##[set-output name=ref;]$(echo ${GITHUB_REF#refs/*/})"
+
       - name: Setup release
         id: create_release
         uses: actions/create-release@v1
