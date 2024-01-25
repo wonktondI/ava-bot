@@ -27,11 +27,11 @@ async fn main() -> Result<()> {
 
     let args = Args::parse();
     let router = Router::new()
-        // .push(Router::with_path("/public/<*path>").get(StaticDir::new(["public"]).auto_list(true)))
-        .push(Router::with_path("/public/<*path>").get(static_embed::<Public>()))
+        .push(Router::with_path("/public/<*path>").get(StaticDir::new(["public"]).auto_list(true)))
+        // .push(Router::with_path("/public/<*path>").get(static_embed::<Public>()))
         .push(
-            // Router::with_path("/assets/<*path>").get(StaticDir::new(["tmp/ava-bot"]).auto_list(true)),
-            Router::with_path("/assets/<*path>").get(static_embed::<Asset>()),
+            Router::with_path("/assets/<*path>").get(StaticDir::new(["tmp/ava-bot"]).auto_list(true)),
+            // Router::with_path("/assets/<*path>").get(static_embed::<Asset>()),
         )
         .push(
             Router::new()
