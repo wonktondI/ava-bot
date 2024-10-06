@@ -7,9 +7,6 @@ on:
 
 jobs:
   create-release:
-    defaults:
-      run:
-        working-directory: ..
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -43,6 +40,6 @@ jobs:
       - name: build and upload
         uses: taiki-e/upload-rust-binary-action@v1
         with:
-          bin: ava-bot
+          bin: ava-bot,llm-sdk
           target: ${{ matrix.target }}
           token: ${{ secrets.GITHUB_TOKEN }}
