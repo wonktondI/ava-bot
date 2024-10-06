@@ -1,0 +1,7 @@
+[workspace]
+members = ["ava-bot", "llm-sdk"]
+resolver = "2"
+
+#优化打包体积
+[profile.release]
+lto = true

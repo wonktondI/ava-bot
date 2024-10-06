@@ -1,0 +1,32 @@
+[package]
+name = "ava-bot"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+anyhow = "1.0.75"
+askama = "0.12.1"
+clap = { version = "4.4.11", features = ["derive"] }
+futures-util = { version = "0.3.29", default-features = false }
+salvo = { version = "0.72.0", features = ["serve-static", "anyhow", "sse", "cookie", "request-id"] }
+serde = { version = "1.0.193", features = ["derive"] }
+serde_json = "1.0.108"
+tokio = { version = "1.35.0", features = ["full"] }
+tokio-stream = { version = "0.1.14", features = ["sync"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "local-time"] }
+async-trait = "0.1.74"
+dashmap = "6.1.0"
+once_cell = "1.19.0"
+llm-sdk = { version = "*", path = "../llm-sdk" }
+uuid = { version = "1.6.1", features = ["v4"] }
+strum = { version = "0.26.3", features = ["derive"] }
+rust-embed = "8.5.0"
+time = { version = "0.3.31", features = ["local-offset"] }
+base64 = "0.22.1"
+schemars = "0.8.16"
+comrak = { version = "0.28.0", default-features = false,  features = ["syntect"] }
+derive_more = { version = "1.0.0", features = ["from"] }
+mimalloc = "0.1.43"

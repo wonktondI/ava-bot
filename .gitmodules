@@ -1,0 +1,3 @@
+[submodule "llm-sdk"]
+	path = llm-sdk
+	url = https://github.com/wonktondI/llm-sdk.git

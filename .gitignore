@@ -1,0 +1,8 @@
+Cargo.lock
+**/Cargo.lock
+/target
+
+# Node.js
+**/node_modules
+**/.idea
+**/tmp
