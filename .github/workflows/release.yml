@@ -21,7 +21,7 @@ jobs:
   build_and_release:
     defaults:
       run:
-        working-directory: .
+        working-directory: ..
     name: Build and Release on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
