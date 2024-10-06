@@ -7,6 +7,9 @@ on:
 
 jobs:
   create-release:
+    defaults:
+      run:
+        working-directory: .
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,6 +19,9 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_and_release:
+    defaults:
+      run:
+        working-directory: .
     name: Build and Release on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
