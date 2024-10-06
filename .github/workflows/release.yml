@@ -9,7 +9,7 @@ jobs:
   create-release:
     defaults:
       run:
-        working-directory: .
+        working-directory: ..
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
