@@ -36,8 +36,6 @@ jobs:
 
       - name: build and upload
         uses: taiki-e/upload-rust-binary-action@v1
-        env:
-          OPENAI_API_KEY: ${{var.OPENAI_API_KEY}}
         with:
           bin: ava-bot
           target: ${{ matrix.target }}
