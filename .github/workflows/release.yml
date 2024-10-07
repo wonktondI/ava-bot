@@ -34,6 +34,9 @@ jobs:
       - name: Create folder
         run: mkdir -p tmp/ava-bot
 
+      - name: List directory contents
+        run: ls -lR
+
       - name: build and upload
         uses: taiki-e/upload-rust-binary-action@v1
         with:
