@@ -16,9 +16,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
   build_and_release:
-    defaults:
-      run:
-        working-directory: ..
     name: Build and Release on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     strategy:
@@ -40,7 +37,6 @@ jobs:
       - name: build and upload
         uses: taiki-e/upload-rust-binary-action@v1
         with:
-          bin: ava-bot,llm-sdk
-          archive: ava-bot-$target
+          bin: ava-bot
           target: ${{ matrix.target }}
           token: ${{ secrets.GITHUB_TOKEN }}
