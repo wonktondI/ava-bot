@@ -38,7 +38,10 @@ jobs:
           node-version: '16'
 
       - name: npm install
-        run: cd ava-bot && npm install && npx tailwindcss build -i ./input.css -o ./public/css/main.css
+        run: |
+          cd ava-bot
+          npm install
+          npx tailwindcss build -i ./input.css -o ./public/css/main.css
 
       - name: Create folder
         run: mkdir -p tmp/ava-bot

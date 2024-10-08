@@ -3,9 +3,8 @@ use ava_bot::handlers::{assistant_handler, events_handler, index_page};
 use ava_bot::Args;
 use clap::Parser;
 use mimalloc::MiMalloc;
-use rust_embed::RustEmbed;
 use salvo::prelude::{RequestId, TcpListener};
-use salvo::serve_static::{static_embed, StaticDir};
+use salvo::serve_static::StaticDir;
 use salvo::server::ServerHandle;
 use salvo::{Listener, Router, Server};
 use time::macros::{format_description, offset};
@@ -15,10 +14,6 @@ use tracing_subscriber::fmt::time::OffsetTime;
 
 #[global_allocator]
 static GLOBAL: MiMalloc = MiMalloc;
-
-#[derive(RustEmbed)]
-#[folder = "public"]
-struct Public;
 
 #[tokio::main]
 async fn main() -> Result<()> {
@@ -35,8 +30,7 @@ async fn main() -> Result<()> {
     let args = Args::parse();
     let router = Router::new()
         .hoop(RequestId::new())
-        // .push(Router::with_path("/public/<*path>").get(StaticDir::new(["public"]).auto_list(true)))
-        .push(Router::with_path("/public/<*path>").get(static_embed::<Public>()))
+        .push(Router::with_path("/public/<*path>").get(StaticDir::new(["public"]).auto_list(true)))
         .push(
             Router::with_path("/assets/<*path>")
                 .get(StaticDir::new(["tmp/ava-bot"]).auto_list(true)),
