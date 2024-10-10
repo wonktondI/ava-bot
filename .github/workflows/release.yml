@@ -32,16 +32,17 @@ jobs:
         uses: actions/checkout@v4
         with:
           submodules: 'recursive'
-      - name: Setup Node.js environment
-        uses: actions/setup-node@v4
-        with:
-          node-version: '16'
 
-      - name: npm install
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: bun install
         run: |
           cd ava-bot
-          npm install
-          npx tailwindcss build -i ./input.css -o ./public/css/main.css
+          bun install
+          bun tailwindcss build -i ./input.css -o ./public/css/main.css
 
       - name: Create folder
         run: mkdir -p tmp/ava-bot
